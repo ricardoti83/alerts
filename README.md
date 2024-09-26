@@ -13,9 +13,10 @@ O comando deverá retornar a seguinte saída:
     "password": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 }
-{gifs/wave}	
+🚨 Atenção: Nunca publique as chaves publicamente.
+
 ```
-Crie o 
+
 ```
 docker build -t alert-tags 
 ```
@@ -26,3 +27,4 @@ docker run -d \
   -v $(pwd)/data:/data \
   alert-tags
 ```
+🎬 
