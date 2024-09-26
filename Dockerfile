@@ -14,14 +14,21 @@ COPY . .
 # Instalar as dependências do Python
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Criar o arquivo de log para o cron
+RUN touch /var/log/mycron.log
+
 # Adicionar o script Python no cron para rodar a cada 6 horas
-RUN echo "0 */1 * * * python3 /app/main.py >> /var/log/mycron.log 2>&1" > /etc/cron.d/azure-check-cron
+RUN echo "* * * * * /usr/local/bin/python3 /app/main.py >> /var/log/mycron.log 2>&1" > /etc/cron.d/azure-check-cron
+
 
 # Dar permissões ao cron job
 RUN chmod 0644 /etc/cron.d/azure-check-cron
 
+# Criar a pasta de dados
+RUN mkdir -p /data
+
 # Aplicar cron job
 RUN crontab /etc/cron.d/azure-check-cron
 
-# Iniciar o serviço cron no contêiner e também iniciar o servidor Flask
-CMD cron && python /app/main.py
+# Executa o cron e mantém o container rodando
+CMD cron && tail -f /var/log/mycron.log

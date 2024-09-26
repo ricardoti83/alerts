@@ -13,4 +13,16 @@ O comando deverá retornar a seguinte saída:
     "password": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 }
+{gifs/wave}	
+```
+Crie o 
+```
+docker build -t alert-tags 
+```
+```
+docker run -d \
+  --name alert-tags \
+  --env-file .env \
+  -v $(pwd)/data:/data \
+  alert-tags
 ```
