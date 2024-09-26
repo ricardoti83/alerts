@@ -1,6 +1,7 @@
 ## Criar um Service Principal na Azure
 
-```az ad sp create-for-rbac --name "AzureTagChecker" --role "Reader" --scopes "/subscriptions/{subscription-id}"
+```
+az ad sp create-for-rbac --name "AzureTagChecker" --role "Reader" --scopes "/subscriptions/{subscription-id}"
 ```
 
 O comando deverá retornar a seguinte saída:
