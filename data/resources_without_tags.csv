@@ -1,8 +1,0 @@
-subscription_id,resource_name,resource_type,resource_location
-0861dac0-871d-41d9-a645-9efb335ec44d,linux-test-ip,Microsoft.Network/publicIPAddresses,eastus
-0861dac0-871d-41d9-a645-9efb335ec44d,linux-test-vnet,Microsoft.Network/virtualNetworks,eastus
-0861dac0-871d-41d9-a645-9efb335ec44d,linux-test-nsg,Microsoft.Network/networkSecurityGroups,eastus
-0861dac0-871d-41d9-a645-9efb335ec44d,NetworkWatcher_eastus,Microsoft.Network/networkWatchers,eastus
-0861dac0-871d-41d9-a645-9efb335ec44d,linux-test735_z1,Microsoft.Network/networkInterfaces,eastus
-0861dac0-871d-41d9-a645-9efb335ec44d,linux-test,Microsoft.Compute/virtualMachines,eastus
-0861dac0-871d-41d9-a645-9efb335ec44d,linux-test_disk1_1ff7af1f9f5849acaa3cadc6e1a93c6e,Microsoft.Compute/disks,eastus
