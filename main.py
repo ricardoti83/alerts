@@ -4,9 +4,54 @@ from dotenv import load_dotenv
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.resource import ResourceManagementClient
 from azure.mgmt.subscription import SubscriptionClient
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 
 # Carregar as variáveis de ambiente do arquivo .env
 load_dotenv()
+
+EMAIL_USER = os.getenv('EMAIL_USER')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
+EMAIL_RECIPIENT = os.getenv('EMAIL_RECIPIENT')
+
+def send_email_with_csv(csv_file_path):
+    fromaddr = "contato@cloudwings.com.br"
+    toaddr = "ricardofromit@gmail.com"
+    msg = MIMEMultipart()
+
+    # Configurações do e-mail
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "Relatório de Recursos Sem Tags"
+
+    # Corpo do e-mail
+    body = "Segue em anexo o relatório de recursos sem tags na assinatura."
+
+    msg.attach(MIMEText(body, 'plain'))
+
+    # Anexar o arquivo CSV
+    filename = os.path.basename(csv_file_path)
+    attachment = open(csv_file_path, "rb")
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload(attachment.read())
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', f"attachment; filename= {filename}")
+    msg.attach(part)
+
+    # Configurações do servidor SMTP (por exemplo, Gmail)
+    server = smtplib.SMTP('smtp.umbler.com', 587)
+    server.starttls()
+    server.login(fromaddr, "Fl0ki1983@!")
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
+    server.quit()
+
+# Exemplo de uso
+csv_file_path = '/app/data/resources_without_tags.csv'
+send_email_with_csv(csv_file_path)
 
 # Função para obter todas as assinaturas associadas ao Service Principal
 def get_all_subscriptions():
@@ -66,5 +111,9 @@ def alert_resources_without_tags():
     save_results_to_csv(all_results, output_path)
     print(f"Resultados salvos em {output_path}")
 
+    send_email_with_csv(csv_file_path)
+    print(f"Enviando o email")
+
 if __name__ == "__main__":
     alert_resources_without_tags()
+    

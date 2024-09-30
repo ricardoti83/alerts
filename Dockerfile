@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN touch /var/log/mycron.log
 
 # Adicionar o script Python no cron para rodar a cada 6 horas
-RUN echo "* * * * * /usr/local/bin/python3 /app/main.py >> /var/log/mycron.log 2>&1" > /etc/cron.d/azure-check-cron
+RUN echo "*/5 * * * * /usr/local/bin/python3 /app/main.py >> /var/log/mycron.log 2>&1" > /etc/cron.d/azure-check-cron
 
 
 # Dar permissões ao cron job
