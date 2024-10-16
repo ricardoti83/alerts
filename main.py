@@ -39,7 +39,13 @@ def list_resources_without_tags(subscription_id, credential):
 
 # Função para salvar os resultados em um arquivo JSON
 def save_results_to_json(results, output_file):
-    """Salva os resultados em um arquivo JSON."""
+    """Salva os resultados em um arquivo JSON, incluindo a contagem total de recursos."""
+    
+    # Adicionar a contagem total de recursos ao final dos resultados
+    total_resources = len(results)
+    results.append({"total_resources": total_resources})
+    
+    # Escrever os resultados no arquivo JSON
     with open(output_file, 'w') as jsonfile:
         json.dump(results, jsonfile, indent=4)
 
